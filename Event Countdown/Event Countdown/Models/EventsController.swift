@@ -11,8 +11,8 @@ import SwiftUI
 class EventsController: ObservableObject {
     
     static let shared = EventsController()
-    
-    @Published var events: [Event]
+//    @Published var events: [Event]
+    var events: [Event]
     
     init() {
         events = [Event]()

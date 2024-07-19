@@ -9,14 +9,13 @@ import SwiftUI
 
 @main
 struct Event_CountdownApp: App {
-    
     @State private var events = EventsController.shared.events
+//    @State private var events = Event.sampleData
     
     var body: some Scene {
         WindowGroup {
-            
-            EventsView(events: $events)
-            
+//            EventsView(events: $events)
+            EventsView()
         }
     }
 }

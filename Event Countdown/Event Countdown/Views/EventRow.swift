@@ -13,23 +13,21 @@ struct EventRow: View {
     var body: some View {
         
         VStack (content: {
-            
-                VStack {
-                    HStack{
-                        Text(event.title)
-                            .foregroundColor(event.textColor)
-                            .frame(alignment: .leading)
-                        // TODO: What is the line limit
-                            .lineLimit(1)
-                        Spacer()
-                    }
-                    HStack{
-                        Text(event.timeRemaining)
-                            .frame(alignment: .leading)
-                        Spacer()
-                    }
+            VStack {
+                HStack{
+                    Text(event.title)
+                        .foregroundColor(event.textColor)
+                        .frame(alignment: .leading)
+                    // TODO: What is the line limit
+                        .lineLimit(1)
+                    Spacer()
                 }
-            
+                HStack{
+                    Text(event.timeRemaining)
+                        .frame(alignment: .leading)
+                    Spacer()
+                }
+            }
             //Spacer()
         })
         

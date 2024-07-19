@@ -10,6 +10,7 @@ import SwiftUI
 
 // TODO: Add conforms to Hashable or Codable?
 struct Event: Comparable, Hashable, Identifiable {
+    
     var id: UUID
     var title: String
     var date: Date
@@ -35,6 +36,13 @@ struct Event: Comparable, Hashable, Identifiable {
         self.textColor = textColor
     }
     
+    init(id: UUID = UUID(), title: String, year: String, month: String, day: String, textColor: Color) {
+        let fmt = ISO8601DateFormatter()
+        self.id = id
+        self.title = title
+        self.date = fmt.date(from: "\(year)-\(month)-\(day)T00:00:00+8000")!
+        self.textColor = textColor
+    }
     
     // Ensure these are sufficient to allow for Sets
     static func < (lhs: Event, rhs: Event) -> Bool {
@@ -58,6 +66,33 @@ extension Event {
     static var emptyEvent: Event {
         Event(title: "", date: Date.now, textColor: .blue)
     }
+}
+
+extension Event {
+    
+    static let sampleData: [Event] =
+    [
+        Event(title: "My 40th Birthday",
+              year: "2025",
+              month: "09",
+              day: "25",
+              textColor: .red),
+        Event(title: "Important work meeting",
+              year: "2020",
+              month: "08",
+              day: "06",
+              textColor: .blue),
+        Event(title: "Pick up Groceries",
+              year: "2024",
+              month: "05",
+              day: "27",
+              textColor: .green),
+        Event(title: "Schedule delivery of goods, and then make up some really long desciption to see how it is formatted in the View.  Also might want to allow the vie to show multiline lines.",
+              year: "2025",
+              month: "10",
+              day: "18",
+              textColor: Color(.sRGB, red: 0.78, green: 0.75, blue: 0.68)),
+    ]
 }
 
 extension Event {
@@ -89,8 +124,7 @@ extension Event {
         
         return sampleData
     
-}
-    
+    }
 }
 
 //extension Color: Codable {
