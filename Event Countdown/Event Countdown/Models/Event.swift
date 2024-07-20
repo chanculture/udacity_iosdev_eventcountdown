@@ -9,9 +9,10 @@ import Foundation
 import SwiftUI
 
 // TODO: Add conforms to Hashable or Codable?
+//struct Event: Comparable, Hashable, Identifiable {
 struct Event: Comparable, Hashable, Identifiable {
     
-    var id: UUID
+    let id: UUID
     var title: String
     var date: Date
     var textColor:Color
@@ -29,8 +30,8 @@ struct Event: Comparable, Hashable, Identifiable {
         self.textColor = Color.blue
     }
     
-    init(id: UUID = UUID(), title: String, date: Date, textColor: Color) {
-        self.id = id
+    init(title: String, date: Date, textColor: Color) {
+        self.id = UUID()
         self.title = title
         self.date = date
         self.textColor = textColor
@@ -70,29 +71,29 @@ extension Event {
 
 extension Event {
     
-    static let sampleData: [Event] =
-    [
-        Event(title: "My 40th Birthday",
-              year: "2025",
-              month: "09",
-              day: "25",
-              textColor: .red),
-        Event(title: "Important work meeting",
-              year: "2020",
-              month: "08",
-              day: "06",
-              textColor: .blue),
-        Event(title: "Pick up Groceries",
-              year: "2024",
-              month: "05",
-              day: "27",
-              textColor: .green),
-        Event(title: "Schedule delivery of goods, and then make up some really long desciption to see how it is formatted in the View.  Also might want to allow the vie to show multiline lines.",
-              year: "2025",
-              month: "10",
-              day: "18",
-              textColor: Color(.sRGB, red: 0.78, green: 0.75, blue: 0.68)),
-    ]
+//    static let sampleData: [Event] =
+//    [
+//        Event(title: "My 40th Birthday",
+//              year: "2025",
+//              month: "09",
+//              day: "25",
+//              textColor: .red),
+//        Event(title: "Important work meeting",
+//              year: "2020",
+//              month: "08",
+//              day: "06",
+//              textColor: .blue),
+//        Event(title: "Pick up Groceries",
+//              year: "2024",
+//              month: "05",
+//              day: "27",
+//              textColor: .green),
+//        Event(title: "Schedule delivery of goods, and then make up some really long desciption to see how it is formatted in the View.  Also might want to allow the vie to show multiline lines.",
+//              year: "2025",
+//              month: "10",
+//              day: "18",
+//              textColor: Color(.sRGB, red: 0.78, green: 0.75, blue: 0.68)),
+//    ]
 }
 
 extension Event {

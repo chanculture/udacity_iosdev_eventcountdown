@@ -21,8 +21,10 @@ struct EventForm: View {
     @State private var eventTitle = ""
     @State private var eventDate = Date.now
     @State private var eventTextColor = Color.red
+    let onSave: (Event) -> Void
     
     var body: some View {
+
             
         Form {
 //            Section(header: Text(viewTitle)) {
@@ -33,12 +35,12 @@ struct EventForm: View {
                     .lineLimit(1)
                     .padding(.horizontal)
                     .foregroundColor(eventTextColor)
-                
-                // Text color needs to dynamically change
+
                 DatePicker("Date", selection: $eventDate)
                     .padding(.horizontal)
+                
                 ColorPicker("Text Color", selection: $eventTextColor, supportsOpacity: false)
-                .padding(.horizontal)
+                    .padding(.horizontal)
             }
         }
         .navigationBarTitle(viewTitle, displayMode: .inline)
@@ -53,25 +55,13 @@ struct EventForm: View {
                                             textColor: eventTextColor)
                         )
                     case .edit:
-                        for i in 0..<(events.count) {
-//                            var existingEvent = events[i]
-//                            if existingEvent.id == $event.id {
-//                                existingEvent.title = eventTitle
-//                                existingEvent.date = eventDate
-//                                existingEvent.textColor = eventTextColor
-//                                events[i] = existingEvent
-//                            }
-                            if events[i].id == event.id {
-                                events[i].title = eventTitle
-                                events[i].date = eventDate
-                                events[i].textColor = eventTextColor
-                            }
-                            
-                        }
+//                        print("placeholder")
+                        event.title = eventTitle
+                        event.date = eventDate
+                        event.textColor = eventTextColor
+                        onSave(event)
+                        
                     }
-//                    event.title = eventTitle
-//                    event.date = eventDate
-//                    event.textColor = eventTextColor
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "checkmark")
@@ -83,16 +73,15 @@ struct EventForm: View {
             switch (mode) {
             case .add:
                 viewTitle = "Add Event"
-            case .edit(let $event):
+            case .edit(let event):
                 viewTitle = "Edit \(event.title)"
-                eventTitle = $event.title
-                eventDate = $event.date
-                eventTextColor = $event.textColor
+                eventTitle = event.title
+                eventDate = event.date
+                eventTextColor = event.textColor
             
             }
         }
 
-    
         Spacer()
         
     } // View
@@ -109,11 +98,11 @@ struct EventForm: View {
     NavigationStack {
         EventForm(event: .constant(EventsController.shared.events[0]),
                   events: .constant(EventsController.shared.events),
-                  mode: .add
-                  //events: .constant(EventsController.shared.events),
+                  mode: .add,
+                  onSave: {_ in }
                   //mode:.edit(EventsController.shared.events[0])
         )
         
     }
 }
-// Test
+

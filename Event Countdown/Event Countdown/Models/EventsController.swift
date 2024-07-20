@@ -19,6 +19,12 @@ class EventsController: ObservableObject {
         generateTestData()
     }
     
+//    subscript(id: UUID) -> Event? {
+//        get {
+//            return
+//        }
+//    }
+    
     func load() {
         print(URL.documentsDirectory)
     }
@@ -38,7 +44,9 @@ class EventsController: ObservableObject {
     }
     
     func updateEvent(at index:Int, event:Event) {
-        events[index] = event
+        events[index].title = event.title
+        events[index].date = event.date
+        events[index].textColor = event.textColor
     }
     
     func generateTestData() {
