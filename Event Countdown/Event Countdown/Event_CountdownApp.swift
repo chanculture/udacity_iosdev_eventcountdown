@@ -14,8 +14,9 @@ struct Event_CountdownApp: App {
     
     var body: some Scene {
         WindowGroup {
-//            EventsView(events: $events)
             EventsView()
+//            EventsView(events: $events)
+
         }
     }
 }

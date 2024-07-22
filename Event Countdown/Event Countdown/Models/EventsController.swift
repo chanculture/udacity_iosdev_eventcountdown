@@ -11,42 +11,11 @@ import SwiftUI
 class EventsController: ObservableObject {
     
     static let shared = EventsController()
-//    @Published var events: [Event]
     var events: [Event]
     
     init() {
         events = [Event]()
         generateTestData()
-    }
-    
-//    subscript(id: UUID) -> Event? {
-//        get {
-//            return
-//        }
-//    }
-    
-    func load() {
-        print(URL.documentsDirectory)
-    }
-    
-    func save() {
-        
-    }
-    
-    func addEvent(_ event: Event) -> Void {
-        // TODO: do we sort before or after insert
-        events.append(event)
-    }
-
-    func deleteEvent(at index:Int){
-        // TODO: Add Safegaurd
-        events.remove(at: index)
-    }
-    
-    func updateEvent(at index:Int, event:Event) {
-        events[index].title = event.title
-        events[index].date = event.date
-        events[index].textColor = event.textColor
     }
     
     func generateTestData() {

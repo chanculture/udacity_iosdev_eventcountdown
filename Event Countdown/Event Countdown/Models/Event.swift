@@ -8,9 +8,9 @@
 import Foundation
 import SwiftUI
 
-// TODO: Add conforms to Hashable or Codable?
+class Event: Comparable, Identifiable {
+// Previously designed the Data Model as a struct
 //struct Event: Comparable, Hashable, Identifiable {
-struct Event: Comparable, Hashable, Identifiable {
     
     let id: UUID
     var title: String
@@ -20,7 +20,6 @@ struct Event: Comparable, Hashable, Identifiable {
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .full
         return formatter.localizedString(for: date, relativeTo: Date.now)
-        //return printCurrentTimeDifference(date)
     }
     
     init() {
@@ -45,7 +44,7 @@ struct Event: Comparable, Hashable, Identifiable {
         self.textColor = textColor
     }
     
-    // Ensure these are sufficient to allow for Sets
+    //TODO: Ensure these are sufficient to allow for Sets
     static func < (lhs: Event, rhs: Event) -> Bool {
         return lhs.date < rhs.date
     }
@@ -58,9 +57,6 @@ struct Event: Comparable, Hashable, Identifiable {
         return lhs.id == rhs.id ? true : false
     }
     
-//    static func === (lhs: Event, rhs: Event) -> Bool {
-//        return lhs.id == rhs.id ? true : false
-//    }
 }
 
 extension Event {
@@ -70,30 +66,29 @@ extension Event {
 }
 
 extension Event {
-    
-//    static let sampleData: [Event] =
-//    [
-//        Event(title: "My 40th Birthday",
-//              year: "2025",
-//              month: "09",
-//              day: "25",
-//              textColor: .red),
-//        Event(title: "Important work meeting",
-//              year: "2020",
-//              month: "08",
-//              day: "06",
-//              textColor: .blue),
-//        Event(title: "Pick up Groceries",
-//              year: "2024",
-//              month: "05",
-//              day: "27",
-//              textColor: .green),
-//        Event(title: "Schedule delivery of goods, and then make up some really long desciption to see how it is formatted in the View.  Also might want to allow the vie to show multiline lines.",
-//              year: "2025",
-//              month: "10",
-//              day: "18",
-//              textColor: Color(.sRGB, red: 0.78, green: 0.75, blue: 0.68)),
-//    ]
+    static let sampleData: [Event] =
+    [
+        Event(title: "My 40th Birthday",
+              year: "2025",
+              month: "09",
+              day: "25",
+              textColor: .red),
+        Event(title: "Important work meeting",
+              year: "2020",
+              month: "08",
+              day: "06",
+              textColor: .blue),
+        Event(title: "Pick up Groceries",
+              year: "2024",
+              month: "05",
+              day: "27",
+              textColor: .green),
+        Event(title: "Schedule delivery of goods, and then make up some really long desciption to see how it is formatted in the View.  Also might want to allow the vie to show multiline lines.",
+              year: "2025",
+              month: "10",
+              day: "18",
+              textColor: Color(.sRGB, red: 0.78, green: 0.75, blue: 0.68)),
+    ]
 }
 
 extension Event {
@@ -127,31 +122,3 @@ extension Event {
     
     }
 }
-
-//extension Color: Codable {
-//    enum CodingKeys: String, CodingKey {
-//        case red, green, blue
-//    }
-//    
-//    public init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        let r = try container.decode(Double.self, forKey: .red)
-//        let g = try container.decode(Double.self, forKey: .green)
-//        let b = try container.decode(Double.self, forKey: .blue)
-//        
-//        self.init(red: r, green: g, blue: b)
-//    }
-//
-//    public func encode(to encoder: Encoder) throws {
-//        guard let colorComponents = self.colorComponents else {
-//            return
-//        }
-//        
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        
-//        try container.encode(colorComponents.red, forKey: .red)
-//        try container.encode(colorComponents.green, forKey: .green)
-//        try container.encode(colorComponents.blue, forKey: .blue)
-//    }
-//}
-
