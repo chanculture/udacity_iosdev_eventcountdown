@@ -13,15 +13,14 @@ enum Mode {
 }
 
 struct EventForm: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @Binding var event: Event
+    @Environment(\.presentationMode) var dismiss
     @Binding var events: [Event]
     @State var mode:Mode
     @State private var viewTitle = ""
     @State private var eventTitle = ""
     @State private var eventDate = Date.now
     @State private var eventTextColor = Color.red
-    let onSave: (Event) -> Void
+    let onSave: ((Event) -> Void)?
     
     var body: some View {
 
@@ -47,13 +46,12 @@ struct EventForm: View {
                                             date: eventDate,
                                             textColor: eventTextColor)
                         )
-                    case .edit:
-                        event.title = eventTitle
-                        event.date = eventDate
-                        event.textColor = eventTextColor
-                        onSave(event)
+                    case .edit(let event):
+                        let editEvent = Event(id: event.id, title: eventTitle, date: eventDate, textColor: eventTextColor)
+                        guard let onSave = onSave else { return }
+                        onSave(editEvent)
                     }
-                    self.presentationMode.wrappedValue.dismiss()
+                    self.dismiss.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "checkmark")
                 }
@@ -80,10 +78,9 @@ struct EventForm: View {
 
 #Preview {
     
-    EventForm(event: .constant(EventsController.shared.events[0]),
-              events: .constant(EventsController.shared.events),
+    EventForm(events: .constant(EventsController.shared.events),
               mode: .add,
-              onSave: {_ in }
+              onSave: nil
     )
 }
 

@@ -9,16 +9,12 @@ import SwiftUI
 
 struct EventsView: View {
     @State private var events = EventsController.shared.events.sorted()
-    @State private var editingEvent = Event()
     
     var body: some View {
         
         NavigationStack {
             List($events) { $event in
-                NavigationLink(destination: EventForm(event: $event,
-                                                      events: $events,
-                                                      mode: .edit(event),
-                                                      onSave: onSave)) {
+                NavigationLink(value: event) {
                     EventRow(event: event)
                 }
                 .swipeActions {
@@ -30,14 +26,18 @@ struct EventsView: View {
                     .tint(.red)
                 }
             }
+            .navigationDestination(for: Event.self, destination: { event in
+                EventForm(events: $events,
+                          mode: .edit(event),
+                          onSave: onSave)
+            })
             .navigationTitle("Events")
             .toolbar {
                 // Additions
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination:EventForm( event:$editingEvent,
-                                                          events: $events,
-                                                          mode:.add,
-                                                          onSave: onSave)) {
+                    NavigationLink(destination:EventForm(events: $events,
+                                                        mode:.add,
+                                                        onSave: nil)) {
                         Image(systemName: "plus")
                     }
                 }

@@ -8,9 +8,9 @@
 import Foundation
 import SwiftUI
 
-class Event: Comparable, Identifiable {
+//class Event: Comparable, Identifiable {
 // Previously designed the Data Model as a struct
-//struct Event: Comparable, Hashable, Identifiable {
+struct Event: Comparable, Identifiable, Hashable {
     
     let id: UUID
     var title: String
@@ -36,6 +36,14 @@ class Event: Comparable, Identifiable {
         self.textColor = textColor
     }
     
+    init(id: UUID, title: String, date: Date, textColor: Color) {
+        self.id = id
+        self.title = title
+        self.date = date
+        self.textColor = textColor
+    }
+    
+    
     init(id: UUID = UUID(), title: String, year: String, month: String, day: String, textColor: Color) {
         let fmt = ISO8601DateFormatter()
         self.id = id
@@ -54,7 +62,7 @@ class Event: Comparable, Identifiable {
     }
     
     static func == (lhs: Event, rhs: Event) -> Bool {
-        return lhs.id == rhs.id ? true : false
+        return lhs.id == rhs.id
     }
     
 }
